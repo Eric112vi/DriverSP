@@ -232,7 +232,7 @@ class SalesController extends Controller
     {
         $userId = $request->user()->uuid ?? null;
 
-        $baseQuery = Sales::where('brand', 'UNV')->cabang('md_pku');
+        $baseQuery = Sales::where('brand', 'UNV')->where('cabang','md_pku');
 
         if($request->has('status')){
             $status = $request->status;
