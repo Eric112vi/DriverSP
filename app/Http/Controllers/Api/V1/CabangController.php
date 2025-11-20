@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Cabang;
-use App\Models\Permission;
 use Illuminate\Http\Request;
 use App\Helpers\ResponseFormatter;
-use Yajra\DataTables\Facades\DataTables;
-use App\Http\Requests\StoreCabangRequest;
-use App\Http\Requests\UpdateCabangRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\CabangResource;
 
 class CabangController extends Controller
 {
@@ -17,7 +15,7 @@ class CabangController extends Controller
      */
     public function index(Request $request)
     {
-        return ResponseFormatter::success([ 'cabang' => Cabang::all()], 'Success');
+        return ResponseFormatter::success([ 'cabang' => CabangResource::collection(Cabang::all())], 'Success');
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\CabangController;
 use App\Models\Sales;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +38,8 @@ Route::prefix('v1')->group(function () {
         Route::post('/sales/{invoice}/delivery', [SalesController::class, 'startDelivery']);
         Route::post('/sales/{invoice}/confirm', [SalesController::class, 'confirm']);
         Route::resource('sales', SalesController::class);
+
+        Route::get('/cabang', [CabangController::class, 'index']);
     });
 });
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
