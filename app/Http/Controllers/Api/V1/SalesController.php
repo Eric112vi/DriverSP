@@ -227,6 +227,44 @@ class SalesController extends Controller
 
         return ResponseFormatter::success(['invoice' => SalesResource::collection($invoices)], 'Success');
     }
+    
+    public function getPartpkuInvoice(Request $request)
+    {
+        $userId = $request->user()->uuid ?? null;
+
+        $baseQuery = Sales::where('brand', 'UNV')->cabang('md_pku');
+
+        if($request->has('status')){
+            $status = $request->status;
+            if($status == 'HOLD') {
+                $baseQuery->where('confirm_status', $status);
+            }
+            else {
+                $baseQuery->where('confirm_status', $status)
+                          ->where('confirm_by', $userId);
+            }
+        } else {
+            $baseQuery->where(function ($q) use ($userId) {
+                $q->where('confirm_status', 'HOLD')
+                  ->orWhere(function ($q2) use ($userId) {
+                      $q2->where('confirm_status', 'ONGOING')
+                         ->where('confirm_by', $userId);
+                  });
+            });
+        }
+
+        if ($request->has('from_date') && $request->has('to_date')) {
+            $invoices = $baseQuery
+                ->whereBetween('invoice_date', [$request->from_date, $request->to_date])
+                ->get();
+        } else {
+            $invoices = $baseQuery
+                ->where('invoice_date', Carbon::now()->toDateString())
+                ->get();
+        }
+
+        return ResponseFormatter::success(['invoice' => SalesResource::collection($invoices)], 'Success');
+    }
 
     public function uploadPhotos(Request $request, $invoice)
     {
