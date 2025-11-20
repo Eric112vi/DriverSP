@@ -32,6 +32,7 @@ Route::prefix('v1')->group(function () {
         Route::get('/falken/data', [SalesController::class, 'getFalkenInvoice']);
         Route::get('/philips/data', [SalesController::class, 'getPhilipsInvoice']);
         Route::get('/mitsu/data', [SalesController::class, 'getMitsuInvoice']);
+        Route::get('/partpku/data', [SalesController::class, 'getPartpkuInvoice']);
         Route::post('/sales/{invoice}/photos', [SalesController::class, 'uploadPhotos']);
         Route::post('/sales/{invoice}/delivery', [SalesController::class, 'startDelivery']);
         Route::post('/sales/{invoice}/confirm', [SalesController::class, 'confirm']);
