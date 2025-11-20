@@ -84,6 +84,9 @@ class SalesController extends Controller
 
         if($request->has('status')){
             $status = $request->status;
+            if($status == '' || $status == null){
+                $status = 'HOLD';
+            }
             if($status == 'HOLD') {
                 $baseQuery->where('confirm_status', $status);
             }
@@ -122,6 +125,9 @@ class SalesController extends Controller
 
         if($request->has('status')){
             $status = $request->status;
+            if($status == '' || $status == null){
+                $status = 'HOLD';
+            }
             if($status == 'HOLD') {
                 $baseQuery->where('confirm_status', $status);
             }
@@ -160,6 +166,9 @@ class SalesController extends Controller
 
         if($request->has('status')){
             $status = $request->status;
+            if($status == '' || $status == null){
+                $status = 'HOLD';
+            }
             if($status == 'HOLD') {
                 $baseQuery->where('confirm_status', $status);
             }
@@ -198,6 +207,9 @@ class SalesController extends Controller
 
         if($request->has('status')){
             $status = $request->status;
+            if($status == '' || $status == null){
+                $status = 'HOLD';
+            }
             if($status == 'HOLD') {
                 $baseQuery->where('confirm_status', $status);
             }
@@ -236,6 +248,9 @@ class SalesController extends Controller
 
         if($request->has('status')){
             $status = $request->status;
+            if($status == '' || $status == null){
+                $status = 'HOLD';
+            }
             if($status == 'HOLD') {
                 $baseQuery->where('confirm_status', $status);
             }
