@@ -6,6 +6,7 @@ use App\Models\Cabang;
 use Illuminate\Http\Request;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\CabangResource;
 
 class CabangController extends Controller
@@ -15,7 +16,12 @@ class CabangController extends Controller
      */
     public function index(Request $request)
     {
-        return ResponseFormatter::success([ 'cabang' => CabangResource::collection(Cabang::all())], 'Success');
+        $user = Auth::user();
+        $branches = Cabang::all()->filter(function ($cabang) use ($user) {
+            $permissionName = 'cabang_' . strtolower($cabang->kode_cabang);
+            return $user->hasPermissionTo($permissionName);
+        });
+        return ResponseFormatter::success([ 'cabang' => CabangResource::collection($branches)], 'Success');
     }
 
     /**
