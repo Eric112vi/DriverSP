@@ -45,7 +45,7 @@ Route::prefix('v1')->group(function () {
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return response()->json([
         'user' => $request->user(),
-        // 'permissions' => $request->user()->permissions()->pluck('name')->toArray(),
+        'permissions' => $request->user()->permissions()->pluck('name')->toArray(),
         // 'roles' => $request->user()->roles()->pluck('name')->toArray()
     ]);
 });
